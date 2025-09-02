@@ -1,0 +1,78 @@
+.profile-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h2 {
+    margin: 0;
+    font-size: 2em;
+    color: var(--primary-color);
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.profile-info .info-group {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.profile-info label {
+    font-weight: 700;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    margin: 0;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.profile-info .edit-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    transition: background-color var(--transition);
+}
+
+.profile-info .edit-button:hover {
+    background-color: #2980b9;
+}
+
+.profile-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.profile-actions button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color var(--transition);
+}
+
+.profile-actions button:hover {
+    background-color: #c0392b;
+}
