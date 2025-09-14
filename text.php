@@ -1,6 +1,6 @@
 <?php
 require_once 'class/Conexion.php';
-
+//Archivo de prueba para verificar conexion a base de datos Supabase
 $db = new Conexion();
 $conn = $db->getConexion();
 

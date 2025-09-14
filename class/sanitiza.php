@@ -1,5 +1,5 @@
 <?php
-// clase/Sanitiza.php
+//Archivo de clase para sanitizar entradas de usuario(si pueden mejorar)
 
 class Sanitizador
 {

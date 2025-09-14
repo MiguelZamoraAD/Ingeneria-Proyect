@@ -1,3 +1,7 @@
+<?php 
+/*Solo para el archivo index ya que si se usa para otros archivos puede
+ ocasionar error, ya que no estan en la misma posicion del archivo*/
+ ?>
 <header>
         <div class="container">
             <div class="logo">
@@ -5,10 +9,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="pages/producto.php">Productos</a></li>
                     <li><a href="#categorias">Categorías</a></li>
                     <li><a href="#novedades">Novedades</a></li>
-                    <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?>
+                    <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?> 
                     <li class="user-profile">
                         <a href="#" id="profile-link">Mi Perfil</a>
                         <div class="profile-dropdown" id="profile-menu">

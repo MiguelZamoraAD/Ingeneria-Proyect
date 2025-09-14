@@ -1,3 +1,4 @@
+//Se usara solo para el archivo de perfil.php
 document.addEventListener('DOMContentLoaded', () => {
     const profileLink = document.getElementById('profile-link');
     const profileMenu = document.getElementById('profile-menu');

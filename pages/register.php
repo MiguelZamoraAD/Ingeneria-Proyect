@@ -18,6 +18,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
 } else {
     //echo "No estás logeado ❌";
 }
+//Archivo para registrar usuarios
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +29,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario - MelodyMart</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../resources/css/style.css">
-    <link rel="stylesheet" href="../resources/css/perfil.css">
+    <link rel="stylesheet" href="../resources/css/forms.css">
 </head>
 
 <body>
@@ -41,19 +41,10 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
             </div>
             <nav>
                 <ul>
-                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="producto.php">Productos</a></li>
                     <li><a href="#categorias">Categorías</a></li>
                     <li><a href="#novedades">Novedades</a></li>
-                    <?php if (isset($_SESSION['autenticado']) === 'SI'): ?>
-                    <li class="user-profile">
-                        <a href="#" id="profile-link">Mi Perfil</a>
-                        <div class="profile-dropdown" id="profile-menu">
-                            <a href="pages/perfil.php">Configuración</a>
-                            <a href="#">Historial de Compras</a>
-                            <a href="func/salir.php">Cerrar Sesión</a>
-                        </div>
-                    </li>
-                    <?php endif; ?>
+                    <li><a href="session.php">Iniciar sección</a></li>
                     <li class="cart-icon">
                         <a href="#" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
                     </li>
@@ -94,14 +85,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
                         </div>
 
                         <!-- Selección de tipo de usuario -->
-                        <div class="form-group">
-                            <label for="tipo">Tipo de Usuario</label>
-                            <select id="tipo" name="tipo" required>
-                                <option value="">Seleccione un tipo</option>
-                                <option value="user">Usuario</option>
-                                <option value="admin">Administrador</option>
-                            </select>
-                        </div>
+                        <input type="hidden" name="tipo" value="user">
 
                         <div class="form-actions">
                             <button type="button" id="btnRegistrar" class="btnRegistrar">Registrarse</button>

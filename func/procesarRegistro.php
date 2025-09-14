@@ -9,10 +9,9 @@ while (ob_get_level()) {
 ob_start();
 
 header('Content-Type: application/json; charset=utf-8');
-
 require_once __DIR__ . '/../class/Usuarios.php';
 session_start();
-
+//Archivo para procesar el registro y login de usuarios
 try {
     $usuario = new UsuarioLogin();
 

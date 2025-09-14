@@ -1,3 +1,4 @@
+//Logica de usuario (registro e inicio de sesion)
 document.addEventListener("DOMContentLoaded", () => {
     // Registro
     const btnRegistrar = document.getElementById("btnRegistrar");

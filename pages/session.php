@@ -18,6 +18,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
 } else {
     //echo "No estás logeado ❌";
 }
+//Archivo para iniciar sesion usuarios
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +29,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario - MelodyMart</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../resources/css/style.css">
-    <link rel="stylesheet" href="../resources/css/perfil.css">
+    <link rel="stylesheet" href="../resources/css/forms.css">
 </head>
 
 <body>
@@ -41,7 +41,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
             </div>
             <nav>
                 <ul>
-                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="producto.php">Productos</a></li>
                     <li><a href="#categorias">Categorías</a></li>
                     <li><a href="#novedades">Novedades</a></li>
                     <li><a href="session.php">Iniciar sección</a></li>
@@ -71,7 +71,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
                             <input type="password" id="loginPassword" name="password" autocomplete="new-password" required>
                         </div>
                         <div class="form-actions">
-                            <button type="button" id="btnLogin">Iniciar sesión</button>
+                            <button type="button" id="btnLogin" class="btnLogin">Iniciar sesión</button>
                         </div>
                     </form>
                 </div>

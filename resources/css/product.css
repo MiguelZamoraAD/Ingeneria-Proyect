@@ -1,3 +1,5 @@
+/*Para el archivo de productos*/
+
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -63,8 +65,19 @@ nav a:hover {
     color: var(--secondary-color);
 }
 
+.cart-icon a {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    transition: color var(--transition);
+}
 
-/* Lo necesario para la opcion de perfil*/
+.cart-icon a:hover {
+    color: var(--secondary-color);
+}
+
+
+/* Perfil Usuario */
 
 .user-profile {
     position: relative;
@@ -100,130 +113,96 @@ nav a:hover {
     display: block;
 }
 
-.search-bar {
+
+/* --- Formulario de Registro --- */
+
+.registro-section {
+    padding: 60px 0;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    align-items: center;
 }
 
-.search-bar input {
-    width: 70%;
-    max-width: 500px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1em;
-}
-
-.search-bar button {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 50px;
-    background-color: var(--secondary-color);
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color var(--transition);
-}
-
-.search-bar button:hover {
-    background-color: #2980b9;
-}
-
-section {
-    padding: 60px 0;
-}
-
-h2 {
-    text-align: center;
-    font-size: 2.2em;
-    color: var(--primary-color);
-    margin-bottom: 40px;
-}
-
-.category-buttons {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.category-buttons button {
-    background-color: #e0e0e0;
-    border: none;
-    padding: 12px 25px;
-    margin: 5px;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color var(--transition), color var(--transition);
-}
-
-.category-buttons button.active,
-.category-buttons button:hover {
-    background-color: var(--secondary-color);
-    color: white;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
+.registro-container {
+    max-width: 600px;
     background-color: var(--card-background);
+    padding: 40px;
     border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.registro-header {
     text-align: center;
-    padding: 20px;
-    transition: transform var(--transition);
+    margin-bottom: 30px;
 }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    margin-bottom: 15px;
-}
-
-.product-card h3 {
-    font-size: 1.4em;
+.registro-header h2 {
+    font-size: 2em;
+    color: var(--primary-color);
     margin: 0 0 10px;
 }
 
-.product-card p {
-    font-size: 0.9em;
+.registro-header p {
+    font-size: 1em;
     color: #666;
-    height: 40px;
-    overflow: hidden;
 }
 
-.product-card .price {
-    font-size: 1.5em;
+.registro-form .form-group {
+    margin-bottom: 20px;
+}
+
+.registro-form label {
+    display: block;
     font-weight: 700;
-    color: var(--accent-color);
-    margin: 15px 0;
+    margin-bottom: 8px;
+    color: var(--text-color);
 }
 
-.buy-button {
+.registro-form input[type="text"],
+.registro-form input[type="email"],
+.registro-form input[type="password"],
+.registro-form input[type="number"],
+.registro-form textarea {
     width: 100%;
     padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    box-sizing: border-box;
+    /* Asegura que el padding no afecte el ancho */
+    transition: border-color var(--transition);
+}
+
+.registro-form input:focus,
+.registro-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.registro-form textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btnRegistrar {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    color: white;
     border: none;
     border-radius: 50px;
-    background-color: #27ae60;
-    color: white;
     font-weight: 700;
+    font-size: 1.1em;
     cursor: pointer;
     transition: background-color var(--transition);
 }
 
-.buy-button:hover {
-    background-color: #2ecc71;
+.btnRegistrar:hover {
+    background-color: #2980b9;
 }
 
 footer {
@@ -232,4 +211,17 @@ footer {
     text-align: center;
     padding: 25px 0;
     margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+    nav ul {
+        margin-top: 15px;
+        gap: 15px;
+    }
+    .registro-container {
+        padding: 25px;
+    }
 }

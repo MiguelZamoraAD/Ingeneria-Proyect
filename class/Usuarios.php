@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../class/sanitiza.php';
 require_once __DIR__ . '/../class/conexion.php';
-
+//Archivo de clase para manejo de usuarios: registro, login, verificacion de duplicados
 class UsuarioLogin {
     private $conexion;
 
