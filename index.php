@@ -1,3 +1,26 @@
+<?php 
+session_start(); 
+require_once __DIR__ . '/class/Usuarios.php';
+
+$usuario = new UsuarioLogin();
+
+// Comprobar si el usuario está autenticado
+if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
+    //echo "Usuario autenticado ✅";
+
+    // Opcional: también puedes mostrar el estado de la DB
+    if ($usuario->estadoConexion()) {
+        //echo " | Conexión a la DB activa ✅";
+    } else {
+        //echo " | Conexión a la DB fallida ❌";
+    }
+
+} else {
+    //echo "No estás logeado ❌";
+}
+include('resources/include/header.php');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,32 +33,6 @@
 </head>
 
 <body>
-
-    <header>
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">MelodyMart 🎶</a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#categorias">Categorías</a></li>
-                    <li><a href="#novedades">Novedades</a></li>
-                    <li class="user-profile">
-                        <a href="#" id="profile-link">Mi Perfil</a>
-                        <div class="profile-dropdown" id="profile-menu">
-                            <a href="pages/perfil.html">Configuración</a>
-                            <a href="#">Historial de Compras</a>
-                            <a href="#">Cerrar Sesión</a>
-                        </div>
-                    </li>
-                    <li class="cart-icon">
-                        <a href="#" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
     <main>
         <section class="hero-section">
@@ -67,13 +64,9 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 MelodyMart. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
     <script src="resources/js/script.js"></script>
 </body>
 
 </html>
+
+<?php include('resources/include/footer.php')?>

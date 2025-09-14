@@ -1,7 +1,0 @@
-Aqui tendre lo que hay que hacer sobre el proyecto escribire lo que hay que hacer y lo que
-faltara.
-
-- Descargar el WampServer
-- Empezar con la creacion de una pagina basica de html
-que tenga lo basico para tener una idea basica de como seguir y tener un estandar
-
