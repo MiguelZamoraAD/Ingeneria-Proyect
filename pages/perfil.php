@@ -51,7 +51,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
                         <div class="profile-dropdown" id="profile-menu">
                             <a href="perfil.php">Configuración</a>
                             <a href="#">Historial de Compras</a>
-                            <a href="func/salir.php">Cerrar Sesión</a>
+                            <a href="../func/salir.php">Cerrar Sesión</a>
                         </div>
                     </li>
                     <?php endif; ?>
