@@ -59,12 +59,16 @@ include('resources/include/header.php');
 
         <section id="productos" class="product-section container">
             <h2>Productos Destacados</h2>
-            <div class="product-grid" id="product-list">
+            <div class="product-grid" id="product-list-coleccion">
+            
             </div>
         </section>
     </main>
-
-    <script src="resources/js/script.js"></script>
+    <script>
+        window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>"; // 'adm' para admin
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="resources/js/catalogoIn.js"></script>
 </body>
 
 </html>

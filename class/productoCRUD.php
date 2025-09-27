@@ -80,7 +80,7 @@ class ProductoCrud {
             return ['ok'=>false,'msg'=>'Error al eliminar: '.$e->getMessage()];
         }
     }
-/*
+
     public function listar($limite, $pagina, $busqueda='') {
         $offset = ($pagina-1)*$limite;
         try {
@@ -109,5 +109,5 @@ class ProductoCrud {
         } catch (Exception $e) {
             return ['data'=>[],'total'=>0,'msg'=>$e->getMessage()];
         }
-    }*/
+    }
 }

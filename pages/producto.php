@@ -6,10 +6,12 @@ $usuario = new UsuarioLogin();
 // Comprobar si el usuario está autenticado
 if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     // La lógica de la sesión se mantiene
+    //var_dump($_SESSION['tipo'] ?? null);
 } else {
     // Lógica para usuarios no logueados
 }
 //Archivo para mostrar productos
+ 
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
                     <li><a href="session.php">Iniciar sección</a></li>
                     <?php endif; ?>
                     <li class="cart-icon">
-                        <a href="#" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
+                        <a href="carrito.php" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
                     </li>
                 </ul>
             </nav>
@@ -70,24 +72,17 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
             </div>
         </section>
 
-        <section id="categorias-coleccion" class="category-section container">
-            <h2>Explora nuestra Colección</h2>
-            <div class="category-buttons">
-                <button class="active" data-category="todos">Todos</button>
-                <button data-category="vinilos">Vinilos y CDs</button>
-                <button data-category="memorabilia">Memorabilia</button>
-                <button data-category="antiguedades">Antigüedades</button>
-                <button data-category="merchandising">Merchandising</button>
+        <section id="productos-coleccion" class="product-section container">
+            <div class="product-grid" id="product-list-coleccion">
+            
             </div>
         </section>
-
-        <section id="productos-coleccion" class="product-section container">
-            <h2>Artículos Exclusivos</h2>
-            <div class="product-grid" id="product-list-coleccion">
-                
-        </section>
     </main>
-
+    <script>
+        window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../resources/js/catalogo.js"></script>
 </body>
 
 </html>

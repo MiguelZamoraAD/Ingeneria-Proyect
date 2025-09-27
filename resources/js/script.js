@@ -1,63 +1,5 @@
 //Se usara para la alguna logica a futuro
 document.addEventListener('DOMContentLoaded', () => {
-    const products = [{
-        id: 1,
-        name: 'Guitarra Eléctrica Vintage',
-        description: 'Sonido clásico, perfecto para rock y blues.',
-        price: 499.99,
-        image: 'guitarra1.jpg',
-        category: 'guitarras'
-    }, {
-        id: 2,
-        name: 'Batería Acústica Completa',
-        description: 'Kit completo, ideal para principiantes y estudios.',
-        price: 899.99,
-        image: 'bateria1.jpg',
-        category: 'baterias'
-    }, {
-        id: 3,
-        name: 'Teclado Electrónico 61 Teclas',
-        description: 'Variedad de sonidos y ritmos, ideal para aprender.',
-        price: 249.99,
-        image: 'teclado1.jpg',
-        category: 'teclados'
-    }, {
-        id: 4,
-        name: 'Micrófono de Condensador USB',
-        description: 'Captura de voz de alta calidad para grabación.',
-        price: 129.99,
-        image: 'microfono.jpg',
-        category: 'accesorios'
-    }, {
-        id: 5,
-        name: 'Bajo Eléctrico de 4 Cuerdas',
-        description: 'Graves potentes y un diseño elegante.',
-        price: 349.99,
-        image: 'bajo.jpg',
-        category: 'guitarras'
-    }, {
-        id: 6,
-        name: 'Pedal de Distorsión',
-        description: 'Añade un toque de rock a tu sonido de guitarra.',
-        price: 79.99,
-        image: 'pedal.jpg',
-        category: 'accesorios'
-    }, {
-        id: 7,
-        name: 'Ukulele de Concierto',
-        description: 'Instrumento divertido y fácil de aprender.',
-        price: 59.99,
-        image: 'ukulele.jpg',
-        category: 'guitarras'
-    }, {
-        id: 8,
-        name: 'Set de Platillos de Jazz',
-        description: 'Platillos con sonido cálido y rico.',
-        price: 299.99,
-        image: 'platillos.jpg',
-        category: 'baterias'
-    }, ];
-
     const productList = document.getElementById('product-list');
     const categoryButtons = document.querySelectorAll('.category-buttons button');
     const searchInput = document.getElementById('search-input');
@@ -136,5 +78,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    renderProducts(products);
 });

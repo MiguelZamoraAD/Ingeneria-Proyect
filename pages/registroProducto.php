@@ -110,6 +110,10 @@ if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI') {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../resources/js/producto.js"></script>
 <script src="../resources/js/perfil.js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const idProducto = urlParams.get('id'); // Esto nos dará el id que se pasó en ?id=123
+</script>
 </body>
 </html>
 <?php include('../resources/include/footer.php')?>

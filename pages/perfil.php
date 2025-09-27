@@ -55,9 +55,6 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
                         </div>
                     </li>
                     <?php endif; ?>
-                    <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'adm'): ?>
-                    <li><a href="Producto.php">Agregar nuevos productos</a></li>
-                    <?php endif; ?>
                     <?php if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI'): ?>
                     <li><a href="pages/session.php">Iniciar sección</a></li>
                     <?php endif; ?>

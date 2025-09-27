@@ -69,7 +69,7 @@ try {
             break;
         
         //Para listar los productos con paginación y búsqueda
-        /*case 'Listar': 
+        case 'Listar': 
             $pagina  = max(1, intval($_POST['pagina'] ?? 1));
             $limite  = intval($_POST['limite'] ?? 10);
             $busqueda= trim($_POST['busqueda'] ?? '');
@@ -78,7 +78,7 @@ try {
             $response['success'] = true;
             $response['accion']  = 'Listar';
             break;
-            */
+            
 
         default:
             $response['message'] = 'Acción no válida';

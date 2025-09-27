@@ -26,7 +26,7 @@
                     <li><a href="pages/session.php">Iniciar sección</a></li>
                     <?php endif; ?>
                     <li class="cart-icon">
-                        <a href="#" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
+                        <a href="pages/carrito.php" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
                     </li>
                 </ul>
             </nav>

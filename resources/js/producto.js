@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputImagen = document.getElementById('imagen');
     const previewImg = document.getElementById('preview');
     let editandoId = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const idProducto = urlParams.get('id');
 
     // ==== Vista previa de imagen ====
     inputImagen.addEventListener('change', () => {
@@ -26,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==== CARGAR ARTISTAS Y CATEGORÍAS DINÁMICOS ====
     function cargarCatalogos() {
-        fetch('../func/listarCatalogos.php')
+        return fetch('../func/listarCatalogos.php')
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -141,14 +143,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('descripcion').value = p.descripcion;
                     document.getElementById('precio').value = p.precio;
                     document.getElementById('cantidad').value = p.cantidad;
-                    document.getElementById('artista').value = p.artista_id || '';
-                    document.getElementById('categoria').value = p.categoria_id || '';
+                    const artistaSelect = document.getElementById('artista');
+                    const categoriaSelect = document.getElementById('categoria');
+                    artistaSelect.value = p.artista_id || '';
+                    categoriaSelect.value = p.categoria_id || '';
+                    if (p.imagen_url) {
+                        const previewImg = document.getElementById('preview');
+                        previewImg.src = p.imagen_url;
+                        previewImg.style.display = 'block';
+                    }
                     editandoId = p.id;
                 } else {
                     Swal.fire('Error', data.message || 'No se pudo cargar', 'error');
                 }
             });
     };
+    if (idProducto) {
+        obtenerProducto(idProducto);
+    }
 
     window.cargarProductos = (pagina = 1) => {
         const fd = new FormData();
@@ -162,8 +174,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
     };
+    // Inicialización
+    cargarCatalogos().then(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProducto = urlParams.get('id');
+        if (idProducto) {
+            obtenerProducto(idProducto);
+        }
+    });
+
 
     // ==== INICIAL ====
-    cargarCatalogos();
     cargarProductos();
 });

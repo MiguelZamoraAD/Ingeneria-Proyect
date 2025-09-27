@@ -110,7 +110,7 @@ nav a:hover {
     width: 70%;
     max-width: 500px;
     padding: 12px 20px;
-    border: none;
+    border: 1px solid #3f6177;
     border-radius: 50px;
     font-size: 1em;
 }
@@ -132,6 +132,11 @@ nav a:hover {
 
 section {
     padding: 60px 0;
+}
+
+h1,
+p {
+    text-align: center;
 }
 
 h2 {
