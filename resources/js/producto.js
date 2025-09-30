@@ -183,6 +183,78 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ==== FILTRAR POR CATEGORÍA EN TIEMPO REAL ====
+const botonesCategoria = document.querySelectorAll('.category-buttons button');
+const gridProductos = document.getElementById('product-list-coleccion');
+const inputBusqueda = document.getElementById('search-input');
+
+botonesCategoria.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Quita la clase 'active' de todos y se la pone al clickeado
+        botonesCategoria.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const categoria = btn.getAttribute('data-category');
+        const termino = inputBusqueda.value.trim();
+
+        // Llamada AJAX al PHP que devuelve productos filtrados en JSON
+        fetch(`ajax/buscarProductos.php?q=${encodeURIComponent(termino)}&categoria=${encodeURIComponent(categoria)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Limpia el grid y agrega los productos
+                gridProductos.innerHTML = '';
+                if (data.length > 0) {
+                    data.forEach(prod => {
+                        gridProductos.innerHTML += `
+                            <div class="product-card">
+                                <img src="${prod.imagen_url}" alt="${prod.nombre}">
+                                <h3>${prod.nombre}</h3>
+                                <p>${prod.descripcion}</p>
+                                <p class="price">$${prod.precio}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    gridProductos.innerHTML = '<p style="text-align:center;">No se encontraron productos.</p>';
+                }
+            })
+            .catch(err => {
+                console.error('Error al filtrar productos:', err);
+                gridProductos.innerHTML = '<p style="text-align:center;">Error al cargar productos.</p>';
+            });
+    });
+});
+
+// ==== FILTRAR POR TEXTO DEL BUSCADOR EN TIEMPO REAL ====
+inputBusqueda.addEventListener('input', () => {
+    const btnActivo = document.querySelector('.category-buttons button.active');
+    const categoria = btnActivo ? btnActivo.getAttribute('data-category') : '';
+    const termino = inputBusqueda.value.trim();
+
+    fetch(`ajax/productosBusqueda.php?q=${encodeURIComponent(termino)}&categoria=${encodeURIComponent(categoria)}`)
+        .then(response => response.json())
+        .then(data => {
+            gridProductos.innerHTML = '';
+            if (data.length > 0) {
+                data.forEach(prod => {
+                    gridProductos.innerHTML += `
+                        <div class="product-card">
+                            <img src="${prod.imagen_url}" alt="${prod.nombre}">
+                            <h3>${prod.nombre}</h3>
+                            <p>${prod.descripcion}</p>
+                            <p class="price">$${prod.precio}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                gridProductos.innerHTML = '<p style="text-align:center;">No se encontraron productos.</p>';
+            }
+        })
+        .catch(err => {
+            console.error('Error al filtrar productos:', err);
+            gridProductos.innerHTML = '<p style="text-align:center;">Error al cargar productos.</p>';
+        });
+});
 
     // ==== INICIAL ====
     cargarProductos();
