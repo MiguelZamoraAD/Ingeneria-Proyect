@@ -96,6 +96,5 @@ $categorias = $categoriaCrud->listar();
         //cargaar todos los productos
         cargarProductos();
     </script>
-
 </body>
 </html>
