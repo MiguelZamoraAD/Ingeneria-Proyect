@@ -5,7 +5,7 @@
 <header>
         <div class="container">
             <div class="logo">
-                <a href="../index.php">MelodyMart 🎶</a>
+                <a href="../index.php">Volumen Brutal 💿</a>
             </div>
             <nav>
                 <ul>
