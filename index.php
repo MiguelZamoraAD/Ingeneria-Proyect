@@ -44,8 +44,16 @@ include('resources/include/header.php');
                 <p>Encuentra todo lo que busca relacionado a musica perfecto para tu sonido único.</p>
                 <div class="search-bar">
                     <input type="text" id="search-input" placeholder="Buscar guitarras, baterías, accesorios...">
-                    <button id="search-button">Buscar</button>
+                    <button id="search-button" onclick="buscarProducto()" >Buscar</button>
                 </div>
+                <script>
+                    function buscarProducto() {
+                        const termino = document.getElementById('search-input').value.trim();
+                        if(termino.length > 0){
+                            window.location.href = 'pages/resultados.php?q=' + encodeURIComponent(termino);
+                    }
+                }
+                </script>
             </div>
         </section>
 
