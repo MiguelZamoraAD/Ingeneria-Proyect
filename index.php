@@ -7,17 +7,17 @@ $usuario = new UsuarioLogin();
 
 // Comprobar si el usuario está autenticado
 if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
-    //echo "Usuario autenticado ✅";
+    //echo "Usuario autenticado";
 
     // Opcional: también puedes mostrar el estado de la DB
     if ($usuario->estadoConexion()) {
-        //echo " | Conexión a la DB activa ✅";
+        //echo " | Conexión a la DB activa";
     } else {
-        //echo " | Conexión a la DB fallida ❌";
+        //echo " | Conexión a la DB fallida";
     }
 
 } else {
-    //echo "No estás logeado ❌";
+    //echo "No estás logeado";
 }
 include('resources/include/header.php');
 ?>
@@ -41,7 +41,7 @@ include('resources/include/header.php');
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Tu pasión, tu música, tu tienda.</h1>
-                <p>Encuentra el instrumento perfecto para tu sonido único.</p>
+                <p>Encuentra todo lo que busca relacionado a musica perfecto para tu sonido único.</p>
                 <div class="search-bar">
                     <input type="text" id="search-input" placeholder="Buscar guitarras, baterías, accesorios...">
                     <button id="search-button">Buscar</button>
