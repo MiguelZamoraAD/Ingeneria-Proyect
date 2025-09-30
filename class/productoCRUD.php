@@ -72,14 +72,52 @@ class ProductoCrud {
     }
 
     public function eliminar($id) {
-        try {
-            $stmt = $this->db->prepare("DELETE FROM public.producto WHERE id = :id");
-            $stmt->execute([':id'=>$id]);
-            return ['ok'=>true,'msg'=>'Producto eliminado'];
-        } catch (Exception $e) {
-            return ['ok'=>false,'msg'=>'Error al eliminar: '.$e->getMessage()];
+    try {
+        // 1. Obtener datos del producto
+        $stmt = $this->db->prepare("SELECT imagen_url, codigos_barra_id FROM public.producto WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        $producto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$producto) {
+            return ['ok'=>false,'msg'=>'Producto no encontrado'];
         }
+
+        // 2. Eliminar imagen en Supabase
+        if (!empty($producto['imagen_url'])) {
+            $urlParts = explode('/', $producto['imagen_url']);
+            $fileName = end($urlParts);
+
+            $supabaseUrl = 'https://recghdynvcvyzdrtmouj.supabase.co/storage/v1/object/Imagen/' . $fileName;
+            $supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlY2doZHludmN2eXpkcnRtb3VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1NTU4MzcsImV4cCI6MjA3MzEzMTgzN30.l7O6l_P3k0TinXjRbj9v6EN0x6iXzLxcuQEUqVtyfdE';
+
+            $ch = curl_init($supabaseUrl);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Authorization: Bearer $supabaseKey",
+                "apikey: $supabaseKey"
+            ]);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch);
+            curl_close($ch);
+        }
+
+        // 3. Eliminar código de barras asociado
+        if (!empty($producto['codigos_barra_id'])) {
+            $stmt = $this->db->prepare("DELETE FROM public.codigo_barra WHERE id = :id");
+            $stmt->execute([':id' => $producto['codigos_barra_id']]);
+        }
+
+        // 4. Finalmente eliminar el producto
+        $stmt = $this->db->prepare("DELETE FROM public.producto WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+
+        return ['ok'=>true,'msg'=>'Producto eliminado correctamente'];
+
+    } catch (Exception $e) {
+        return ['ok'=>false,'msg'=>'Error al eliminar: '.$e->getMessage()];
     }
+}
+
 
     public function listar($limite, $pagina, $busqueda='') {
         $offset = ($pagina-1)*$limite;

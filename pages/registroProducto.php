@@ -107,12 +107,6 @@ if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI') {
   </section>
 </main>
 
-    <div class="paginacion-usuarios">
-        <button class="btnAnterior" id="btnAnterior">&laquo;</button>
-        <span class="btn-paginacion activo" id="paginaActual"></span>
-        <button class="btnSiguiente" id="btnSiguiente">&raquo;</button>
-    </div>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../resources/js/supaBase.js"></script>

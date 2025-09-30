@@ -17,6 +17,7 @@ $categorias = $categoriaCrud->listar();
     <title>MelodyMart - Productos</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/style.css">
+    <link rel="stylesheet" href="../resources/css/pag-botn.css">
 </head>
 <body>
     <?php include('../resources/include/header.php'); ?>
@@ -95,5 +96,6 @@ $categorias = $categoriaCrud->listar();
         //cargaar todos los productos
         cargarProductos();
     </script>
+
 </body>
 </html>
