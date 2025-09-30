@@ -1,91 +1,99 @@
-<!-- <?php
+<?php
 session_start();
-require_once __DIR__ . '/../class/Usuarios.php';
-$usuario = new UsuarioLogin();
+require_once __DIR__ . '/../class/productoCRUD.php';
+require_once __DIR__ . '/../class/categoriaCRUD.php';
 
-// Comprobar si el usuario está autenticado
-if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
-    // La lógica de la sesión se mantiene
-    //var_dump($_SESSION['tipo'] ?? null);
-} else {
-    // Lógica para usuarios no logueados
-}
-//Archivo para mostrar productos
- 
+
+// Cargar categorías desde la base de datos
+$productos = new ProductoCrud();
+$categoriaCrud = new CategoriaCRUD();
+$categorias = $categoriaCrud->listar();
 ?>
--->
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MelodyMart - Colección y Merchandising</title>
+    <title>MelodyMart - Productos</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/style.css">
 </head>
-
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <a href="../index.php">MelodyMart 🎶</a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="producto.php">Productos</a></li>
-                    <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'adm'): ?>
-                    <li><a href="registroProducto.php">Agregar nuevos productos</a></li>
-                    <?php endif; ?>
-                    <li><a href="#categorias">Categorías</a></li>
-                    <li><a href="#novedades">Novedades</a></li>
-                    <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?>
-                    <li class="user-profile">
-                        <a href="#" id="profile-link">Mi Perfil</a>
-                        <div class="profile-dropdown" id="profile-menu">
-                            <a href="perfil.php">Configuración</a>
-                            <a href="#">Historial de Compras</a>
-                            <a href="../func/salir.php">Cerrar Sesión</a>
-                        </div>
-                    </li>
-                    <?php endif; ?>
-                    <?php if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI'): ?>
-                    <li><a href="session.php">Iniciar sección</a></li>
-                    <?php endif; ?>
-                    <li class="cart-icon">
-                        <a href="carrito.php" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <?php include('../resources/include/header.php'); ?>
 
-    <main>
+    <main class="container">
         <section class="hero-section hero-coleccion">
             <div class="hero-content">
-                <h1>Descubre tesoros musicales.</h1>
-                <p>Instrumentos de colección, vinilos exclusivos y merchandising de tus artistas favoritos.</p>
+                <h1>Descubre nuestros productos</h1>
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Buscar vinilos, posters, memorabilia...">
-                    <button id="search-button">Buscar</button>
+                    <input type="text" id="search-input" placeholder="Buscar productos...">
                 </div>
+                <!--/////categorías/////-->
+                <section class="category-section">
+                    <div class="category-buttons">
+                        <button data-category="todos">Todos</button>
+                        <?php foreach($categorias as $cat): ?>
+                            <button data-category="<?php echo htmlspecialchars($cat['nombre']); ?>">
+                                <?php echo htmlspecialchars($cat['nombre']); ?>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
             </div>
         </section>
 
         <section id="productos-coleccion" class="product-section container">
             <div class="product-grid" id="product-list-coleccion">
-            
             </div>
         </section>
     </main>
+    <?php include('../resources/include/footer.php'); ?>
+
     <script>
-        window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>";
+        const searchInput = document.getElementById('search-input');
+        const productGrid = document.getElementById('product-list-coleccion');
+        const categoryButtons = document.querySelectorAll('.category-buttons button');
+
+        //Funcion para cargar los productos de forma dinamica AJAX
+        function cargarProductos(busqueda = '', categoria = '') {
+            fetch(`ajax/buscarProductos.php?q=${encodeURIComponent(busqueda)}&categoria=${encodeURIComponent(categoria)}`)
+                .then(res => res.json())
+                .then(data => {
+                    productGrid.innerHTML = '';
+                    if(data.length > 0){
+                        data.forEach(prod => {
+                            productGrid.innerHTML += `
+                                <div class="product-card">
+                                    <img src="${prod.imagen_url || '../resources/img/default-product.png'}" alt="${prod.nombre}">
+                                    <h3>${prod.nombre}</h3>
+                                    <p>${prod.descripcion}</p>
+                                    <p>Precio: $${prod.precio}</p>
+                                    <p>Stock: ${prod.cantidad}</p>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        productGrid.innerHTML = '<p class="no-results">No se encontraron productos.</p>';
+                    }
+                });
+        }
+
+        //Buscar mientras escribes
+        searchInput.addEventListener('input', () => {
+            cargarProductos(searchInput.value);
+        });
+
+        //Filtrar por categoría
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                cargarProductos(searchInput.value, btn.getAttribute('data-category'));
+            });
+        });
+
+        //cargaar todos los productos
+        cargarProductos();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../resources/js/supaBase.js"></script>
-    <script src="../resources/js/proCatalogo.js"></script>
 </body>
-
 </html>
-
-<?php include('../resources/include/footer.php')?>
