@@ -1,3 +1,18 @@
+<!-- <?php
+session_start();
+require_once __DIR__ . '/../class/Usuarios.php';
+$usuario = new UsuarioLogin();
+
+// Comprobar si el usuario está autenticado
+if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
+    // La lógica de la sesión se mantiene
+    //var_dump($_SESSION['tipo'] ?? null);
+} else {
+    // Lógica para usuarios no logueados
+}
+//Archivo para mostrar productos
+ 
+?>-->
 <!DOCTYPE html>
 <html lang="es">
 <head>

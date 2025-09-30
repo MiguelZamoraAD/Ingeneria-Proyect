@@ -8,6 +8,7 @@ if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI') {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -106,9 +107,21 @@ if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI') {
   </section>
 </main>
 
+    <div class="paginacion-usuarios">
+        <button class="btnAnterior" id="btnAnterior">&laquo;</button>
+        <span class="btn-paginacion activo" id="paginaActual"></span>
+        <button class="btnSiguiente" id="btnSiguiente">&raquo;</button>
+    </div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../resources/js/producto.js"></script>
+<script src="../resources/js/supaBase.js"></script>
+        <!-- Scrip de la pagina -->
+<script src="../resources/js/crud.js"></script>
+<script src="../resources/js/artCat.js"></script>
+<script src="../resources/js/im.js"></script>
+<script src="../resources/js/proCatalogo.js"></script>
+        <!-- JS para el bloque de usuario -->
 <script src="../resources/js/perfil.js"></script>
 <script>
   const urlParams = new URLSearchParams(window.location.search);

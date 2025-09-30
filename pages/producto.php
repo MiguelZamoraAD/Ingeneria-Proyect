@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 session_start();
 require_once __DIR__ . '/../class/Usuarios.php';
 $usuario = new UsuarioLogin();
@@ -13,7 +13,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
 //Archivo para mostrar productos
  
 ?>
-
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -82,7 +82,8 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
         window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../resources/js/catalogo.js"></script>
+    <script src="../resources/js/supaBase.js"></script>
+    <script src="../resources/js/proCatalogo.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+<!--
 <?php 
 session_start(); 
 require_once __DIR__ . '/class/Usuarios.php';
@@ -20,6 +21,8 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
 }
 include('resources/include/header.php');
 ?>
+-->
+<?php include('resources/include/header.php') ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -58,17 +61,25 @@ include('resources/include/header.php');
         </section>
 
         <section id="productos" class="product-section container">
-            <h2>Productos Destacados</h2>
+            <h2>Nuevos Productos</h2>
             <div class="product-grid" id="product-list-coleccion">
             
             </div>
         </section>
     </main>
+
+    <div class="paginacion-usuarios">
+        <button class="btnAnterior" id="btnAnterior">&laquo;</button>
+        <span class="btn-paginacion activo" id="paginaActual"></span>
+        <button class="btnSiguiente" id="btnSiguiente">&raquo;</button>
+    </div>
+    
     <script>
         window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>"; // 'adm' para admin
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="resources/js/catalogoIn.js"></script>
+    <script src="resources/js/supaBase.js"></script>
+    <script src="resources/js/proCatalogo.js"></script>
 </body>
 
 </html>
