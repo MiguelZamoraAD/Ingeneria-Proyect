@@ -3,6 +3,7 @@
 session_start(); 
 require_once __DIR__ . '/class/Usuarios.php';
 
+
 $usuario = new UsuarioLogin();
 
 // Comprobar si el usuario está autenticado
@@ -33,6 +34,7 @@ include('resources/include/header.php');
     <title>MelodyMart - Tienda de Instrumentos Musicales</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/pag-botn.css">
 </head>
 
 <body>
@@ -73,13 +75,15 @@ include('resources/include/header.php');
         <span class="btn-paginacion activo" id="paginaActual"></span>
         <button class="btnSiguiente" id="btnSiguiente">&raquo;</button>
     </div>
-    
+
     <script>
         window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>"; // 'adm' para admin
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="resources/js/supaBase.js"></script>
     <script src="resources/js/proCatalogo.js"></script>
+    <script src="resources/js/pagina.js"></script>
 </body>
 
 </html>

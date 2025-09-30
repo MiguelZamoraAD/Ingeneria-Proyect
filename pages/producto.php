@@ -23,6 +23,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     <title>MelodyMart - Colección y Merchandising</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/style.css">
+    <link rel="stylesheet" href="../resources/css/pag-botn.css">
 </head>
 
 <body>
@@ -78,12 +79,20 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
             </div>
         </section>
     </main>
+
+    <div class="paginacion-usuarios">
+        <button class="btnAnterior" id="btnAnterior">&laquo;</button>
+        <span class="btn-paginacion activo" id="paginaActual"></span>
+        <button class="btnSiguiente" id="btnSiguiente">&raquo;</button>
+    </div>
     <script>
         window.usuarioTipo = "<?php echo $_SESSION['tipo'] ?? ''; ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../resources/js/supaBase.js"></script>
     <script src="../resources/js/proCatalogo.js"></script>
+    <script src="../resources/js/pagina.js"></script>
 </body>
 
 </html>

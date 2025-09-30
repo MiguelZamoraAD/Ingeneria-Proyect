@@ -1,36 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const productosPorPagina = 12;
+    const productosPorPagina = 11;
     let paginaActual = 1;
     let totalPaginas = 1;
 
     // ==== Eliminar ====
     window.eliminarProducto = id => {
-        const fd = new FormData();
-        fd.append('Accion', 'Eliminar');
-        fd.append('id', id);
-        fetch('/inge/func/procesarproducto.php', { method: 'POST', body: fd })
-            .then(async r => {
-                // Intentar parsear JSON con manejo de error
-                try {
-                    return await r.json();
-                } catch (err) {
-                    throw new Error('La respuesta del servidor no es JSON válido');
-                }
-            })
-            .then(data => {
-                if (data.success) {
-                    Swal.fire('Eliminado', 'Producto eliminado', 'success');
-                    // Recargar la lista usando la función que realmente existe
-                    cargarProductosColeccion();
-                } else {
-                    Swal.fire('Error', data.message || 'No se pudo eliminar el producto', 'error');
-                }
-            })
-            .catch(err => {
-                console.error('Error en eliminarProducto:', err);
-                Swal.fire('Error', 'Hubo un problema de conexión o de respuesta del servidor', 'error');
-            });
+        // Confirmación antes de eliminar
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const fd = new FormData();
+                fd.append('Accion', 'Eliminar');
+                fd.append('id', id);
+
+                fetch('/inge/func/procesarproducto.php', { method: 'POST', body: fd })
+                    .then(async r => {
+                        try {
+                            return await r.json();
+                        } catch (err) {
+                            throw new Error('La respuesta del servidor no es JSON válido');
+                        }
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Eliminado', 'Producto eliminado correctamente', 'success');
+                            cargarProductosColeccion(); // recarga productos
+                        } else {
+                            Swal.fire('Error', data.message || 'No se pudo eliminar', 'error');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error en eliminarProducto:', err);
+                        Swal.fire('Error', 'Hubo un problema de conexión o de respuesta del servidor', 'error');
+                    });
+            }
+        });
     };
+
 
     async function cargarProductosColeccion() {
         try {
@@ -58,6 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
             productos.forEach(prod => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+
+                card.addEventListener('click', () => {
+                    window.location.href = `/inge/pages/productoID.php?id=${prod.id}`;
+                });
+
                 card.innerHTML = `
                     <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
                          alt="${prod.nombre}">
