@@ -110,4 +110,44 @@ class ProductoCrud {
             return ['data'=>[],'total'=>0,'msg'=>$e->getMessage()];
         }
     }
+    
+    public function listarConCategoria($limite, $pagina, $busqueda='') {
+    $offset = ($pagina-1)*$limite;
+    try {
+        $where = '';
+        $params = [':lim'=>$limite, ':off'=>$offset];
+        if ($busqueda !== '') {
+            $where = "WHERE p.nombre ILIKE :busqueda OR p.descripcion ILIKE :busqueda";
+            $params[':busqueda'] = "%$busqueda%";
+        }
+
+        $sql = "SELECT p.*, c.nombre AS categoria_nombre
+                FROM public.producto p
+                LEFT JOIN public.categoria c ON p.categoria_id = c.id
+                $where
+                ORDER BY p.creado_en DESC
+                LIMIT :lim OFFSET :off";
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($params as $k=>$v) {
+            $stmt->bindValue($k, $v, ($k==':lim'||$k==':off')?PDO::PARAM_INT:PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Conteo total
+        $count = $this->db->prepare("SELECT count(*) 
+                                     FROM public.producto p
+                                     LEFT JOIN public.categoria c ON p.categoria_id = c.id
+                                     ".($where? $where:'')); 
+        if ($busqueda !== '') $count->execute([':busqueda'=>"%$busqueda%"]);
+        else $count->execute();
+        $total = $count->fetchColumn();
+
+        return ['data'=>$data,'total'=>$total,'pagina'=>$pagina,'limite'=>$limite];
+    } catch (Exception $e) {
+        return ['data'=>[],'total'=>0,'msg'=>$e->getMessage()];
+    }
+}
+
 }
