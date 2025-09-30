@@ -10,8 +10,6 @@
             <nav>
                 <ul>
                     <li><a href="pages/producto.php">Productos</a></li>
-                    <li><a href="#categorias">Categorías</a></li>
-                    <li><a href="#novedades">Novedades</a></li>
                     <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?> 
                     <li class="user-profile">
                         <a href="#" id="profile-link">Mi Perfil</a>
