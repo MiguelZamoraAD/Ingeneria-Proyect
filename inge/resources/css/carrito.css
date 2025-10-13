@@ -1,0 +1,52 @@
+/* Estilos básicos para la demostración */
+
+.contenedor-principal {
+    display: flex;
+    flex-wrap: wrap;
+    /* Para que se apilen en pantallas pequeñas */
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 30px;
+}
+
+
+/* Estilos de las secciones */
+
+.seccion-carrito,
+.seccion-pago {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    /* Para que ocupen espacio de forma flexible */
+    min-width: 300px;
+}
+
+
+/* Estilos de Carrito y Pago */
+
+#lista-carrito {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* ... otros estilos para el formulario de pago */

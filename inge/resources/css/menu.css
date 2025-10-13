@@ -1,0 +1,40 @@
+/* Menu desplegable al momento de cambiar de tamaño de la pantalla*/
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* Flexbox para los elementos de la lista */
+}
+
+.nav-menu ul li {
+    margin-left: 25px;
+}
+
+.nav-menu ul li a {
+    color: var(--light-text);
+    font-weight: 700;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+    /* Un poco de padding para el hover */
+}
+
+.nav-menu ul li a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.menu-toggle,
+.user-menu-toggle {
+    display: none;
+    /* Oculto por defecto en escritorio */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 1001;
+    /* Ajustar el ícono de hamburguesa */
+}
