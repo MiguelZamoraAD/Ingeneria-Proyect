@@ -9,12 +9,23 @@
     --transition: 0.3s ease-in-out;
 }
 
+html,
 body {
+    height: 100%;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
     color: var(--text-color);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 .container {

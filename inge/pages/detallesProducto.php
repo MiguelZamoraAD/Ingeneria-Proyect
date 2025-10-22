@@ -1,9 +1,10 @@
 <!--
-<?php 
+< ?php 
 session_start(); 
 require_once __DIR__ . '/../class/Usuarios.php';
 require_once __DIR__ . '/../class/Conexion.php';
 require_once __DIR__ . '/../class/productoCRUD.php';
+require_once __DIR__ . '/../class/categoriaCRUD.php';
 
 $usuario = new UsuarioLogin();
 // Comprobar si el usuario está autenticado
@@ -38,6 +39,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
     echo "<h2>Error: No se proporcionó un ID de producto.</h2>";
     exit;
 }
+//categoria
 $id = $_GET['id'];
 $crud = new ProductoCrud();
 $res  = $crud->obtener($id);
@@ -109,12 +111,13 @@ $producto = $res['producto'];
                 </div>
 
                 <div class="product-info-details">
-                    <?php if (!empty($producto['categoria_id'])): ?>
-                        <p><strong>Categoría:</strong> <?= htmlspecialchars($producto['categoria_id']) ?></p>
+                    <?php if (!empty($producto['artista_nombre'])): ?>
+                        <p><strong>Artista:</strong> <?= htmlspecialchars($producto['artista_nombre']) ?></p>
                     <?php endif; ?>
-                    <?php if (!empty($producto['artista_id'])): ?>
-                        <p><strong>Artista ID:</strong> <?= htmlspecialchars($producto['artista_id']) ?></p>
+                    <?php if (!empty($producto['categoria_nombre'])): ?>
+                        <p><strong>Categoría:</strong> <?= htmlspecialchars($producto['categoria_nombre']) ?></p>
                     <?php endif; ?>
+    
                     <p><strong>Descripción:</strong><br><?= nl2br(htmlspecialchars($producto['descripcion'] ?? 'Sin descripción')) ?></p>
                 </div>
                 
@@ -124,8 +127,10 @@ $producto = $res['producto'];
                 
                 <div class="price-section">
                     <p><strong>Precio:</strong> $<?= number_format($producto['precio'], 2) ?></p>
+                    <!--
                     <span class="discount-tag"> 0% Que oferton</span>
                     <p class="offer-validity"></p>
+                    -->
                 </div>
 
                 <button class="add-to-cart-button">Agregar al carrito</button>
@@ -133,9 +138,8 @@ $producto = $res['producto'];
                 </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../resources/js/carrito.js"></script>
-
+<?php include('../resources/include/footer.php')?>
 </body>
 </html>
-
-<?php include('../resources/include/footer.php')?>

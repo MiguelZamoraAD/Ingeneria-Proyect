@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <img src="${prod.imagen_url || 'img/placeholder.jpg'}" alt="${prod.nombre}">
                 <h3>${prod.nombre}</h3>
-                <p>${prod.descripcion || ''}</p>
+                <p>${cortarContenido(prod.descripcion || '',30)}</p>
                 <span class="price">$${parseFloat(prod.precio).toFixed(2)}</span>
                 <p>Stock: ${prod.cantidad}</p>
             `;
@@ -125,6 +125,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function getCategoriaActiva() {
         const activeBtn = document.querySelector('.category-buttons button.active');
         return activeBtn ? activeBtn.getAttribute('data-category') : '';
+    }
+
+    function cortarContenido(texto, max = 30) {
+        if (!texto || typeof texto !== 'string') return '';
+
+        // Limpieza profunda: elimina saltos de línea, tabs, retornos de carro y espacios dobles
+        texto = texto
+            .replace(/[\r\n\t]+/g, ' ') // elimina saltos de línea y tabs
+            .replace(/\s\s+/g, ' ') // colapsa espacios múltiples
+            .trim(); // limpia los bordes
+
+        // Si sigue siendo más corto que el máximo, devuélvelo tal cual
+        if (texto.length <= max) return texto;
+
+        // Encuentra el espacio más cercano al límite
+        const corte = texto.indexOf(' ', max);
+        return texto.substring(0, corte !== -1 ? corte : max) + '...';
     }
 
     // Cargar todos los productos inicialmente

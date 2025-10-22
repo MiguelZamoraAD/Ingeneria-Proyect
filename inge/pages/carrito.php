@@ -11,6 +11,8 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     //var_dump($_SESSION['tipo'] ?? null);
 } else {
     // Lógica para usuarios no logueados
+    header('Location: session.php');
+    exit();
 }
 //Cantidad en el Carrito
 $cartCount = 0;
@@ -33,7 +35,6 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
             $producto['subtotal'] = $producto['precio'] * $item['cantidad'];
             $productosCarrito[] = $producto;
 
-            $cartCount += $item['cantidad'];
             $totalCarrito += $producto['subtotal'];
         }
    }
@@ -47,9 +48,9 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
     <title>Tienda Rápida - Pago y Escaneo</title>
 
     <!-- Estilos -->
+     <link rel="stylesheet" href="../resources/css/carrito.css">
     <link rel="stylesheet" href="../resources/css/menu.css">
     <link rel="stylesheet" href="../resources/css/style.css">
-    <link rel="stylesheet" href="../resources/css/carrito.css">
 
 </head>
 <body>
@@ -93,17 +94,18 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
             <ul id="lista-carrito" class="max-h-80 overflow-y-auto mb-4">
                  <?php if (!empty($productosCarrito)): ?>
                     <?php foreach ($productosCarrito as $producto): ?>
-                        <li class="item-carrito">
-                            <img src="<?= htmlspecialchars($producto['imagen_url']) ?>"alt="<?= htmlspecialchars($producto['nombre']) ?>" class="miniatura">
+                        <li class="item-carrito" data-id="<?= $producto['id'] ?>" data-precio="<?= $producto['precio'] ?>">
+                            <img src="<?= htmlspecialchars($producto['imagen_url']) ?>" alt="<?= htmlspecialchars($producto['nombre']) ?>" class="miniatura">
                             <div class="detalles-item">
                                 <h3><?= htmlspecialchars($producto['nombre']) ?></h3>
-                                <p>Cantidad: <?= $producto['cantidad'] ?></p>
+                                <p>Cantidad: <span class="cantidad"><?= $producto['cantidad'] ?></span></p>
                                 <p>Precio: $<?= number_format($producto['precio'], 2) ?></p>
-                                <p>Subtotal: <strong>$<?= number_format($producto['subtotal'], 2) ?></strong></p>
-                                <form method="post" action="../func/eliminarDelCarrito.php" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                                    <button type="submit" class="btn-eliminar">❌ Eliminar</button>
-                                </form>
+                                <p>Subtotal: <strong class="subtotal">$<?= number_format($producto['subtotal'], 2) ?></strong></p>
+                                
+                                <div class="botones-cantidad">
+                                    <button class="btn-restar">➖</button>
+                                    <button class="btn-sumar">➕</button>
+                                </div>
                             </div>
                         </li>
                     <?php endforeach; ?>
@@ -112,7 +114,9 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
                 <?php endif; ?>
             </ul>
             <div class="resumen-carrito">
-                <p class="text-xl font-bold">Total: <span id="total-carrito">$<?= number_format($totalCarrito, 2) ?></span></p>
+                <p>Subtotal: <span id="subtotal-carrito">$<?= number_format($totalCarrito, 2) ?></span></p>
+                <p>ITBMS (7%): <span id="itbms-carrito">$<?= number_format($totalCarrito*0.07, 2) ?></span></p>
+                <p class="text-xl font-bold">Total: <span id="total-carrito">$<?= number_format($totalCarrito*1.07, 2) ?></span></p>
                 <button id="btn-proceder-pago" disabled>Proceder al Pago</button>
                 <div id="mensaje-sistema" class="text-sm mt-3 p-2 bg-yellow-100 text-yellow-800 rounded hidden"></div>
             </div>
@@ -124,30 +128,26 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
                 <h2 class="text-center">Confirmación y Pago</h2>
                 <p class="text-center text-2xl mb-6">Total a pagar: <strong id="total-pago-final" class="text-indigo-700">$0.00</strong></p>
                 
-                <form id="formulario-pago">
-                    <p class="font-medium mb-3">Selecciona el Método de Pago:</p>
+                <form id="formulario-pago" action="../func/procesarPedido.php" method="POST">
+                    <p class="font-medium mb-3">Selecciona el Método de Pago:</p><br>
                     <div class="metodos-pago space-y-2">
                         <label>
                             <input type="radio" name="metodo-pago" value="tarjeta" required class="mr-2 text-indigo-600">
-                            <span>💳 Tarjeta de Crédito/Débito</span>
+                            <span>💳 Tarjeta de Crédito/Débito (No disponible)</span>
                         </label>
                         <label>
                             <input type="radio" name="metodo-pago" value="efectivo" class="mr-2 text-indigo-600">
-                            <span>💵 Efectivo</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="metodo-pago" value="transferencia" class="mr-2 text-indigo-600">
-                            <span>🏦 Transferencia Bancaria</span>
+                            <span>💵 Efectivo (Pagar en el Local)</span>
                         </label>
                     </div>
 
-                    <div id="detalles-tarjeta" class="mt-4 p-4 border rounded-lg bg-gray-50" style="display: none;">
+                    <!--<div id="detalles-tarjeta" class="mt-4 p-4 border rounded-lg bg-gray-50" style="display: none;">
                         <label for="numero-tarjeta" class="block font-medium mb-1">Número de Tarjeta (Simulado):</label>
                         <input type="text" id="numero-tarjeta" placeholder="XXXX XXXX XXXX XXXX" class="p-2 border rounded-lg w-full">
                     </div>
-
+                    -->
                     <button type="submit" id="btn-finalizar-compra" class="mt-6">
-                        Finalizar Compra y Actualizar DB
+                        Confirmar Compra
                     </button>
                     <button type="button" id="btn-volver-carrito">
                         Volver al Carrito
@@ -157,8 +157,9 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
         </section>
 
     </main>
-
     <!-- JS externo -->
-    <script href="../resources/js/ArtCarrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../resources/js/ArtCarrito.js"></script>
+<?php include('../resources/include/footer.php')?>
 </body>
 </html>

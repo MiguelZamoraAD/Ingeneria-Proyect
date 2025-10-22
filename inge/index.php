@@ -1,5 +1,5 @@
 <!--
-<?php 
+< ?php 
 session_start(); 
 require_once __DIR__ . '/class/Usuarios.php';
 require_once __DIR__ . '/class/productoCRUD.php';
@@ -112,9 +112,8 @@ if (isset($_SESSION['carrito'])) {
     <script src="resources/js/categoria.js"></script>
     <script src="resources/js/logic.js"></script>
     <script src="resources/js/carrito.js"></script>
-    
+  
+<?php include('resources/include/footer.php')?>  
 </body>
 
 </html>
-
-<?php include('resources/include/footer.php')?>

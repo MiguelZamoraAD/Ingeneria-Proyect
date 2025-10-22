@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, eliminar'
-        }).then((result) => {
+        }).then(async(result) => {
             if (result.isConfirmed) {
                 const fd = new FormData();
                 fd.append('Accion', 'Eliminar');
@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-
     async function cargarProductosColeccion() {
         try {
             // 1. Traer todos los productos desde la tabla "producto"
@@ -68,11 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
             productos.forEach(prod => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+
+                // Extraer nombre del archivo de Supabase
+                let fileName = '';
+                if (prod.imagen_url) {
+                    const parts = prod.imagen_url.split('/');
+                    fileName = parts[parts.length - 1];
+                }
+
                 card.innerHTML = `
                     <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
-                         alt="${prod.nombre}">
+                         alt="${prod.nombre}"
+                         data-nombre-archivo="${fileName}">
                     <h3>${prod.nombre}</h3>
-                    <p>${cortarContenido(prod.descripcion) || ''}</p>
+                    <p>${cortarContenido(prod.descripcion || '', 30)}</p>
                     <span class="price">$${parseFloat(prod.precio).toFixed(2)}</span>
                     <p>Stock: ${prod.cantidad}</p>
                     
@@ -120,10 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function cortarContenido(texto, max = 15) {
+    function cortarContenido(texto, max = 30) {
+        if (!texto || typeof texto !== 'string') return '';
+
+        // Limpieza profunda: elimina saltos de línea, tabs, retornos de carro y espacios dobles
+        texto = texto
+            .replace(/[\r\n\t]+/g, ' ') // elimina saltos de línea y tabs
+            .replace(/\s\s+/g, ' ') // colapsa espacios múltiples
+            .trim(); // limpia los bordes
+
+        // Si sigue siendo más corto que el máximo, devuélvelo tal cual
         if (texto.length <= max) return texto;
-        const corte = texto.indexOf(" ", max);
-        return texto.substring(0, corte !== -1 ? corte : max) + "...";
+
+        // Encuentra el espacio más cercano al límite
+        const corte = texto.indexOf(' ', max);
+        return texto.substring(0, corte !== -1 ? corte : max) + '...';
     }
 
     // ==== INICIAL ====

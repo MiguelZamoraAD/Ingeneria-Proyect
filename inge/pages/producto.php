@@ -1,4 +1,4 @@
-<!-- <?php
+<!-- < ?php
 session_start();
 require_once __DIR__ . '/../class/Usuarios.php';
 require_once __DIR__ . '/../class/productoCRUD.php';
@@ -50,6 +50,42 @@ if (isset($_SESSION['carrito'])) {
                     <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'adm'): ?>
                     <li><a href="registroProducto.php">Agregar nuevos productos</a></li>
                     <?php endif; ?>
+                    <!--< ?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'adm'): ?>-->
+                    <li><a href="#" id="btn-generar-reporte">Generar Reporte</a></li>
+                    <!--< ?php endif; ?>-->
+                    <!-- Modal para generar reporte -->
+                    <!--<div id="modal-reporte" style="display: none;color: #333;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.6);z-index: 1000;justify-content: center;align-items: center;">
+                        <div style="background:#fff; padding:20px; border-radius:8px; width:400px; text-align:center; position:relative;">
+                            <h3>Generar Reporte de Ventas y Stock</h3>
+                            <p>¿Desea generar el reporte en PDF?</p>
+                            <button id="confirmar-reporte" style="margin:10px; padding:10px 20px;">✅ Confirmar</button>
+                            <button id="cancelar-reporte" style="margin:10px; padding:10px 20px;">❌ Cancelar</button>
+                        </div>
+                    </div>-->
+                    <div id="modal-reporte" style="display:none;color:#333;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;justify-content:center;align-items:center;">
+                        <div style="background:#fff; padding:20px; border-radius:8px; width:400px; text-align:center; position:relative;">
+                            <h3>Generar Reporte de Ventas y Stock</h3>
+
+                            <label for="categoria">Categoría:</label><br>
+                            <select id="categoria" style="margin:10px; padding:6px; width:80%;">
+                            <option value="todas">Todas</option>
+                            <option value="bebidas">Bebidas</option>
+                            <option value="alimentos">Alimentos</option>
+                            <option value="limpieza">Limpieza</option>
+                            <option value="electronica">Electrónica</option>
+                            </select><br>
+
+                            <label for="formato">Formato:</label><br>
+                            <select id="formato" style="margin:10px; padding:6px; width:80%;">
+                            <option value="pdf">PDF</option>
+                            <option value="excel">Excel</option>
+                            </select><br>
+
+                            <button id="confirmar-reporte" style="margin:10px; padding:10px 20px;">✅ Generar</button>
+                            <button id="cancelar-reporte" style="margin:10px; padding:10px 20px;">❌ Cancelar</button>
+                        </div>
+                    </div>
+                    <!-- Fin del Modal -->
                     <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?>
                     <li class="user-profile">
                         <a href="#" id="profile-link">Mi Perfil</a>
@@ -114,8 +150,10 @@ if (isset($_SESSION['carrito'])) {
     <script src="../resources/js/categoria.js"></script>
     <script src="../resources/js/logic.js"></script>
     <script src="../resources/js/carrito.js"></script>
+    <!-- Descarga en Pdf y Reporte-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../resources/js/reporte.js"></script>
+<?php include('../resources/include/footer.php')?>
 </body>
 
 </html>
-
-<?php include('../resources/include/footer.php')?>

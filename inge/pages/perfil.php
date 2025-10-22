@@ -1,4 +1,4 @@
-<?php 
+<!--<?php 
 session_start(); 
 require_once __DIR__ . '/../class/Usuarios.php';
 
@@ -29,6 +29,7 @@ if (isset($_SESSION['carrito'])) {
     }
 }
 ?>
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -107,7 +108,7 @@ if (isset($_SESSION['carrito'])) {
     <script src="../resources/js/perfil.js"></script>
     <script src="../resources/js/logic.js"></script>
     <script src="../resources/js/carrito.js"></script>
+    <?php include('../resources/include/footer.php')?>
 </body>
 
 </html>
-<?php include('../resources/include/footer.php')?>

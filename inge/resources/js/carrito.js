@@ -17,12 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         cartCount.textContent = data.total; // actualiza número del carrito
                         addToCartBtn.textContent = '✅ Agregado!';
                         addToCartBtn.disabled = true;
+
                         setTimeout(() => {
                             addToCartBtn.textContent = 'Agregar al carrito';
                             addToCartBtn.disabled = false;
                         }, 1000);
+
                     } else {
-                        alert('Error al agregar: ' + data.msg);
+                        // Mostrar mensaje de stock
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Stock alcanzado',
+                            text: data.msg
+                        });
                     }
                 })
                 .catch(err => console.error('Error:', err));

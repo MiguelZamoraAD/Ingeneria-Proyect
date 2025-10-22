@@ -1,4 +1,4 @@
-<?php 
+<!--<?php 
 session_start();
 require_once __DIR__ . '/../class/Usuarios.php';
 
@@ -15,7 +15,7 @@ if (isset($_SESSION['carrito'])) {
     }
 }
 ?>
-
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -131,6 +131,7 @@ if (isset($_SESSION['carrito'])) {
   const urlParams = new URLSearchParams(window.location.search);
   const idProducto = urlParams.get('id'); // Esto nos dará el id que se pasó en ?id=123
 </script>
+
+<?php include('../resources/include/footer.php')?>
 </body>
 </html>
-<?php include('../resources/include/footer.php')?>
