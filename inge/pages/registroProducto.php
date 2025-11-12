@@ -34,18 +34,22 @@ if (isset($_SESSION['carrito'])) {
       <ul>
         <li><a href="producto.php">Productos</a></li>
         <?php if ($_SESSION['tipo']==='adm'): ?>
-          <li><a href="#">Agregar nuevos productos</a></li>
+          <li><a href="registroProducto.php">Agregar nuevos productos</a></li>
         <?php endif; ?>
         <li><a href="#categorias">Categorías</a></li>
         <li><a href="#novedades">Novedades</a></li>
         <li class="user-profile">
-          <a href="#" id="profile-link">Mi Perfil</a>
-          <div class="profile-dropdown" id="profile-menu">
-            <a href="perfil.php">Configuración</a>
-            <a href="#">Historial de Compras</a>
-            <a href="func/salir.php">Cerrar Sesión</a>
-          </div>
+            <a href="#" id="profile-link">Mi Perfil</a>
+            <div class="profile-dropdown" id="profile-menu">
+              <a href="perfil.php">Configuración</a>
+              <a href="#" id="btn-historial">Historial de Compras</a>
+              <a href="../func/salir.php">Cerrar Sesión</a>
+            </div>
         </li>
+        <!-- Modal Generar Reporte -->
+        <div id="modal-historial" style="display:none;color:#333;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;justify-content:center;align-items:center;">
+        </div>
+        <!-- Fin del Modal -->
         <li class="cart-icon">
           <a href="carrito.php" id="cart-link">🛒 Carrito (<span id="cart-count"><?= $cartCount ?></span>)</a>
         </li>
@@ -127,6 +131,8 @@ if (isset($_SESSION['carrito'])) {
 <script src="../resources/js/perfil.js"></script>
 <script src="../resources/js/logic.js"></script>
 <script src="../resources/js/carrito.js"></script>
+<script src="../resources/js/reporte.js"></script>
+<script src="../resources/js/script.js"></script>
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const idProducto = urlParams.get('id'); // Esto nos dará el id que se pasó en ?id=123

@@ -1,5 +1,5 @@
 <!--
-< ?php 
+<?php 
 session_start(); 
 require_once __DIR__ . '/class/Usuarios.php';
 require_once __DIR__ . '/class/productoCRUD.php';
@@ -56,13 +56,17 @@ if (isset($_SESSION['carrito'])) {
                         <li><a href="pages/producto.php">Productos</a></li>
                         <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?> 
                         <li class="user-profile">
-                            <a href="#" id="profile-link">Mi Perfil</a>
-                            <div class="profile-dropdown" id="profile-menu">
-                                <a href="pages/perfil.php">Configuración</a>
-                                <a href="#">Historial de Compras</a>
-                                <a href="func/salir.php">Cerrar Sesión</a>
-                            </div>
-                        </li>
+                        <a href="#" id="profile-link">Mi Perfil</a>
+                        <div class="profile-dropdown" id="profile-menu">
+                            <a href="perfil.php">Configuración</a>
+                            <a href="#" id="btn-historial">Historial de Compras</a>
+                            <a href="../func/salir.php">Cerrar Sesión</a>
+                        </div>
+                    </li>
+                    <!-- Modal Generar Reporte -->
+                    <div id="modal-historial" style="display:none;color:#333;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;justify-content:center;align-items:center;">
+                    </div>
+                    <!-- Fin del Modal -->
                         <?php endif; ?>
                         <?php if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== 'SI'): ?>
                         <li><a href="pages/session.php">Iniciar sección</a></li>
@@ -112,6 +116,8 @@ if (isset($_SESSION['carrito'])) {
     <script src="resources/js/categoria.js"></script>
     <script src="resources/js/logic.js"></script>
     <script src="resources/js/carrito.js"></script>
+    <script src="resources/js/reporte.js"></script>
+    <script src="resources/js/script.js"></script>
   
 <?php include('resources/include/footer.php')?>  
 </body>

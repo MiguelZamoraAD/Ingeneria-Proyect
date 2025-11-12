@@ -107,6 +107,7 @@ if (isset($_SESSION['carrito'])) {
     <script src="../resources/js/user.js"></script>
     <script src="../resources/js/logic.js"></script>
     <script src="../resources/js/carrito.js"></script>
+    <script src="../resources/js/script.js"></script>
     <?php include('../resources/include/footer.php')?>
 </body>
 
