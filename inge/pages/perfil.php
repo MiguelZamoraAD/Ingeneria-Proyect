@@ -3,16 +3,19 @@ session_start();
 require_once __DIR__ . '/../class/Usuarios.php';
 
 $usuario = new UsuarioLogin();
+$datosUsuario = [];
 
 // Comprobar si el usuario está autenticado
 if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
-    //echo "Usuario autenticado ✅";
+    $correo_sesion = $_SESSION['usuario'];
     
-    // Opcional: también puedes mostrar el estado de la DB
-    if ($usuario->estadoConexion()) {
-        //echo " | Conexión a la DB activa ✅";
-    } else {
-        //echo " | Conexión a la DB fallida ❌";
+    $datosUsuario = $usuario->obtenerDatosUsuario($correo_sesion); 
+
+    if (!$datosUsuario) {
+        // Error: No se encontraron datos para el correo de la sesión.
+        // Podrías redirigir al logout por seguridad.
+        header('Location: ../func/salir.php');
+        exit();
     }
 
 } else {
@@ -81,30 +84,20 @@ if (isset($_SESSION['carrito'])) {
         <section class="profile-section">
             <div class="container profile-container">
                 <div class="profile-header">
-                    <h2>Información de Mi Perfil</h2>
-                    <p>Gestiona tu información personal y de contacto.</p>
+                    <h2>Información de Perfil</h2>
                 </div>
+            <div class="container profile-container">
                 <div class="profile-info">
                     <div class="info-group">
                         <label for="name">Nombre Completo:</label>
-                        <p id="name">Juan Pérez</p>
+                        <p id="name"><?= htmlspecialchars($datosUsuario['NombreCompleto'] ?? 'N/A') ?></p>
                     </div>
                     <div class="info-group">
                         <label for="email">Correo Electrónico:</label>
-                        <p id="email">juan.perez@email.com</p>
-                    </div>
-                    <div class="info-group">
-                        <label for="phone">Teléfono:</label>
-                        <p id="phone">+52 55 1234 5678</p>
-                    </div>
-                    <div class="info-group">
-                        <label for="address">Dirección de Envío:</label>
-                        <p id="address">Calle Falsa 123, Ciudad de México, México</p>
+                        <p id="email"><?= htmlspecialchars($datosUsuario['Correo'] ?? 'N/A') ?></p>
                     </div>
                 </div>
-                <div class="profile-actions">
-                    <button>Editar Información</button>
-                </div>
+                <br>
             </div>
         </section>
     </main>

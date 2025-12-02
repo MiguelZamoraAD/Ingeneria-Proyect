@@ -59,6 +59,10 @@ $producto = $res['producto'];
     <title>Document</title>
     <link rel="stylesheet" href="../resources/css/style.css">
     <link rel="stylesheet" href="../resources/css/idProducto.css">
+<<<<<<< Updated upstream:inge/pages/detallesProducto.php
+=======
+    <link rel="stylesheet" href="../resources/css/menu.css">
+>>>>>>> Stashed changes:pages/detallesProducto.php
 </head>
 <body>
     <header>
@@ -133,9 +137,15 @@ $producto = $res['producto'];
                     <p class="offer-validity"></p>
                     -->
                 </div>
+<<<<<<< Updated upstream:inge/pages/detallesProducto.php
 
                 <button class="add-to-cart-button">Agregar al carrito</button>
                 
+=======
+                <?php if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI'): ?>
+                <button class="add-to-cart-button">Agregar al carrito</button>
+                <?php endif; ?>
+>>>>>>> Stashed changes:pages/detallesProducto.php
                 </div>
         </div>
     </main>
@@ -143,6 +153,10 @@ $producto = $res['producto'];
     <script src="../resources/js/reporte.js"></script>
     <script src="../resources/js/carrito.js"></script>
     <script src="../resources/js/script.js"></script>
+<<<<<<< Updated upstream:inge/pages/detallesProducto.php
+=======
+    <script src="../resources/js/logic.js"></script>
+>>>>>>> Stashed changes:pages/detallesProducto.php
 <?php include('../resources/include/footer.php')?>
 </body>
 </html>

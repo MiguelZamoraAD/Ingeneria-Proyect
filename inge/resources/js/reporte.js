@@ -248,7 +248,11 @@ document.addEventListener("DOMContentLoaded", async() => {
 
                     historialLista.innerHTML += `
                         <div style="background:#fafafa; border-radius:10px; margin-bottom:15px; padding:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+<<<<<<< Updated upstream:inge/resources/js/reporte.js
                             <h4 style="margin-bottom:5px;">🧾 Pedido #${pedido.id}</h4>
+=======
+                            <h4 style="margin-bottom:5px;"><!--🧾 Pedido #${pedido.id}--></h4>
+>>>>>>> Stashed changes:resources/js/reporte.js
                             <p style="margin:0 0 5px 0;">Fecha: ${new Date(pedido.fecha).toLocaleString()}</p>
                             <div>${detallesHTML}</div>
                             <div style="text-align:right; margin-top:10px;">

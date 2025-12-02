@@ -40,7 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
+<<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
 
+=======
+>>>>>>> Stashed changes:resources/js/proCatalogo.js
     async function cargarProductosColeccion() {
         try {
             // 1. Traer todos los productos desde la tabla "producto"
@@ -67,6 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
             productos.forEach(prod => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                if (prod.cantidad <= 0) {
+                    card.classList.add('stock-agotado'); // Corregido
+                }
 
                 // Extraer nombre del archivo de Supabase
                 let fileName = '';
@@ -76,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 card.innerHTML = `
+<<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
                     <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
                          alt="${prod.nombre}"
                          data-nombre-archivo="${fileName}">
@@ -85,6 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Stock: ${prod.cantidad}</p>
                     
                 `;
+=======
+                                <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
+                                     alt="${prod.nombre}"
+                                     data-nombre-archivo="${fileName}">
+                                <h3>${prod.nombre}</h3>
+                                <p>${cortarContenido(prod.descripcion || '', 30)}</p>
+                                <span class="price">$${parseFloat(prod.precio).toFixed(2)}</span>
+                                <p>Stock: ${prod.cantidad}</p>
+                                
+                            `;
+>>>>>>> Stashed changes:resources/js/proCatalogo.js
 
                 // === Botón Ver Detalles (para todos) ===
                 const btnDetalles = document.createElement('button');
@@ -121,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.appendChild(acciones);
                 }
                 container.appendChild(card);
-
             });
         } catch (err) {
             console.error('Error general:', err);

@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         productsToRender.forEach(product => {
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
+            if (prod.cantidad <= 0) {
+                card.classList.add('stock-agotado'); // Corregido
+            }
             productCard.innerHTML = `
                 <img src="assets/images/${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
