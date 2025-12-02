@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si el usuario seleccionó una imagen, súbela al bucket
         if (file) {
+            //subir imagen a supabase
             const fileName = `${Date.now()}-${file.name}`;
             const { data, error } = await supabase.storage
                 .from('Imagen') // nombre del bucket
@@ -26,13 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Obtener URL pública
+            // Obtener URL pública de la imagen nueva
             const { data: publicUrlData } = supabase
                 .storage
                 .from('Imagen')
                 .getPublicUrl(fileName);
 
             imageUrl = publicUrlData.publicUrl;
+
+            // === Eliminar imagen antigua si existe ===
+            if (editandoId && previewImg.dataset.nombreArchivo) {
+                const oldFileName = previewImg.dataset.nombreArchivo;
+                const { error: delError } = await supabase.storage.from('Imagen').remove([oldFileName]);
+                if (delError) console.error('Error eliminando archivo antiguo:', delError.message);
+            }
+
+            // Guardar nombre del archivo de la nueva imagen
+            previewImg.dataset.nombreArchivo = fileName;
+
         } else if (editandoId) {
             //Se mantiene la imagen Actual si se edita
             imageUrl = document.getElementById('preview').src || '';
@@ -57,7 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 if (data.success) {
-                    Swal.fire('✅ Éxito', data.message, 'success');
+                    Swal.fire('✅ Éxito', data.message, 'success').then(() => {
+                        if (editandoId == null) {
+                            window.location.href = 'producto.php';
+                        } else {
+                            // Recargar la página para ver los cambios
+                            window.location.href = 'registroproducto.php';
+                        }
+                    });
                     formCrear.reset();
                     previewImg.src = '';
                     previewImg.style.display = 'none';
@@ -95,9 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Mostrar imagen previa si existe
                     if (p.imagen_url) {
-                        const previewImg = document.getElementById('preview');
                         previewImg.src = p.imagen_url;
                         previewImg.style.display = 'block';
+                        // Extraer nombre del archivo desde la URL
+                        const parts = p.imagen_url.split('/');
+                        previewImg.dataset.nombreArchivo = parts[parts.length - 1];
                     }
                 } else {
                     Swal.fire('Error', data.message || 'No se pudo cargar', 'error');

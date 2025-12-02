@@ -1,4 +1,4 @@
-<?php 
+<!--<?php 
 session_start(); 
 require_once __DIR__ . '/../class/Usuarios.php';
 
@@ -19,8 +19,15 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     //echo "No estás logeado ❌";
 }
 //Archivo para registrar usuarios
+//Cantidad en el Carrito
+$cartCount = 0;
+if (isset($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $item) {
+        $cartCount += $item['cantidad'];
+    }
+}
 ?>
-
+-->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -30,23 +37,21 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
     <title>Registro de Usuario - MelodyMart</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../resources/css/forms.css">
+    <link rel="stylesheet" href="../resources/css/menu.css">
 </head>
 
 <body>
-
     <header>
         <div class="container">
             <div class="logo">
-                <a href="../index.php">MelodyMart 🎶</a>
+                <a href="../index.php">Volumen Brutal 💿</a>
             </div>
             <nav>
                 <ul>
                     <li><a href="producto.php">Productos</a></li>
-                    <li><a href="#categorias">Categorías</a></li>
-                    <li><a href="#novedades">Novedades</a></li>
                     <li><a href="session.php">Iniciar sección</a></li>
                     <li class="cart-icon">
-                        <a href="#" id="cart-link">🛒 Carrito (<span id="cart-count">0</span>)</a>
+                        <a href="carrito.php" id="cart-link">🛒 Carrito (<span id="cart-count"><?= $cartCount ?></span>)</a>
                     </li>
                 </ul>
             </nav>
@@ -57,7 +62,7 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
         <section class="registro-section">
             <div class="container registro-container">
                 <div class="registro-header">
-                    <h2>Crea tu Cuenta en MelodyMart</h2>
+                    <h2>Crea tu Cuenta en Volumen Brutal</h2>
                     <p>Únete a nuestra comunidad y descubre la mejor música.</p>
                 </div>
                 <div class="registro-form-container">
@@ -99,7 +104,10 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SI') {
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../resources/js/user.js"></script>
+    <script src="../resources/js/logic.js"></script>
+    <script src="../resources/js/carrito.js"></script>
+    <script src="../resources/js/script.js"></script>
+    <?php include('../resources/include/footer.php')?>
 </body>
 
 </html>
-<?php include('../resources/include/footer.php')?>

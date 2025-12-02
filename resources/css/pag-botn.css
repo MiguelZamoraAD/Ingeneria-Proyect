@@ -19,6 +19,22 @@
     transition: 0.3s ease;
 }
 
+.btn-detalles {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+.btn-detalles:hover {
+    background-color: #218838;
+}
+
 
 /* Botón editar: azul */
 

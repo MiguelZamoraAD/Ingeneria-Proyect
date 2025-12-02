@@ -1,7 +1,7 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
-    --background-color: #f8f9fa;
+    --background-color: #9dc4ee;
     --card-background: #ffffff;
     --text-color: #333;
     --accent-color: #e74c3c;
@@ -9,7 +9,9 @@
     --transition: 0.3s ease-in-out;
 }
 
+html,
 body {
+    height: 100%;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
@@ -17,53 +19,36 @@ body {
     color: var(--text-color);
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
-header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1.2rem 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+/* Ejemplo de CSS que hace que el card sea rojo */
+
+.product-card.stock-agotado {
+    background-color: #fa9da4;
+    border: 1px solid #f3afb6;
+    color: #721C24;
 }
 
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.logo a {
-    font-size: 1.8em;
-    font-weight: 700;
-    color: white;
-    text-decoration: none;
-}
+/*Fin Stock*/
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color var(--transition);
-}
+/* Lo necesario para la opcion de perfil*/
 
-nav a:hover {
-    color: var(--secondary-color);
-}
-
-/* Perfil Usuario */
 .user-profile {
     position: relative;
 }
@@ -77,7 +62,7 @@ nav a:hover {
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+    z-index: 2000;
     min-width: 180px;
     margin-top: 10px;
 }
@@ -94,11 +79,11 @@ nav a:hover {
     background-color: #f0f0f0;
 }
 
-.user-profile:hover .profile-dropdown {
+.profile-dropdown.show {
     display: block;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Buscador */
 .search-bar {
     display: flex;
     justify-content: center;
@@ -130,9 +115,8 @@ nav a:hover {
     background-color: #2980b9;
 }
 
-/* Secciones */
 section {
-    padding: 10px 0;
+    padding: 30px 0;
 }
 
 .hero-section.hero-coleccion {
@@ -153,7 +137,9 @@ h2 {
     margin-bottom: 20px;
 }
 
+
 /*Categorías*/
+
 .category-section {
     padding: 10px 0;
     margin: 0 auto 10px auto;
@@ -172,6 +158,7 @@ h2 {
     background-color: #e0e0e0;
     border: none;
     padding: 12px 25px;
+    margin: 5px;
     border-radius: 50px;
     font-weight: 700;
     cursor: pointer;
@@ -184,7 +171,6 @@ h2 {
     color: white;
 }
 
-/* Productos */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -254,4 +240,20 @@ footer {
     text-align: center;
     padding: 25px 0;
     margin-top: 50px;
+}
+
+.profile-dropdown.show {
+    display: block;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

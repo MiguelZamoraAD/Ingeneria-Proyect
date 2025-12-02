@@ -1,18 +1,5 @@
 /* Estilos básicos para la demostración */
 
-body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: #f4f4f9;
-}
-
-header {
-    background-color: #3f51b5;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-
 .contenedor-principal {
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +12,6 @@ header {
 
 /* Estilos de las secciones */
 
-.seccion-escaner,
 .seccion-carrito,
 .seccion-pago {
     background-color: white;
@@ -38,38 +24,6 @@ header {
 }
 
 
-/* Estilos de escáner */
-
-#area-camara {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    border: 2px dashed #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#video-scanner {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.instruccion {
-    z-index: 10;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-
 /* Estilos de Carrito y Pago */
 
 #lista-carrito {
@@ -79,8 +33,8 @@ header {
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #3f98c2;
+    color: rgb(0, 0, 0);
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -89,9 +43,62 @@ button {
     width: 100%;
 }
 
+.btn-sumar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-restar {
+    background-color: #d12d2d;
+    color: white;
+}
+
 button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+
+/* Valores de imagenes de lista de producto*/
+
+.item-carrito {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    gap: 15px;
+}
+
+.item-carrito img.miniatura {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.detalles-item {
+    flex: 1;
+}
+
+.detalles-item h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+}
+
+
+/*Botones de sumar y restar uno al lado de otro*/
+
+.botones-cantidad {
+    display: flex;
+    gap: 50px;
+    /* espacio entre botones */
+}
+
+.botones-cantidad button {
+    font-size: 16px;
+    cursor: pointer;
 }
 
 

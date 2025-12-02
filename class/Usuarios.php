@@ -122,5 +122,24 @@ class UsuarioLogin {
         }
     }
 
+    public function obtenerDatosUsuario($correo) {
+        try {
+            // Ajusta las columnas SELECT según lo que necesites mostrar.
+            // Estoy asumiendo que tienes 'NombreCompleto', 'Correo', 'Telefono', 'Direccion', etc.
+            // Si te faltan 'Telefono' o 'Direccion', puedes añadirlos a tu tabla de DB.
+            $sql = 'SELECT "NombreCompleto", "Correo" FROM usuarios WHERE "Correo" = :correo';
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->execute();
+
+            // Retorna la fila como un array asociativo
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            // En un entorno real, solo registra el error, no lo muestres al usuario.
+            error_log("Error al obtener datos de usuario: " . $e->getMessage());
+            return false;
+        }
+    }
 
 }

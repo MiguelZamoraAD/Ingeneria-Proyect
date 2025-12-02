@@ -59,17 +59,31 @@ class ProductoCrud {
     }
 
     public function obtener($id) {
-        try {
-            $stmt = $this->db->prepare("SELECT * FROM public.producto WHERE id = :id");
-            $stmt->execute([':id'=>$id]);
-            $prod = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $prod
-                ? ['ok'=>true,'producto'=>$prod,'msg'=>'Ok']
-                : ['ok'=>false,'msg'=>'Producto no encontrado'];
-        } catch (Exception $e) {
-            return ['ok'=>false,'msg'=>$e->getMessage()];
+    try {
+        $sql = "
+            SELECT 
+                p.*, 
+                a.nombre AS artista_nombre,
+                c.nombre AS categoria_nombre
+            FROM public.producto p
+            LEFT JOIN public.artista a ON p.artista_id = a.id
+            LEFT JOIN public.categoria c ON p.categoria_id = c.id
+            WHERE p.id = :id
+            LIMIT 1
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $producto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($producto) {
+            return ['ok' => true, 'producto' => $producto];
+        } else {
+            return ['ok' => false, 'msg' => 'Producto no encontrado'];
         }
+    } catch (Exception $e) {
+        return ['ok' => false, 'msg' => 'Error: ' . $e->getMessage()];
     }
+}
 
     public function eliminar($id) {
     try {
@@ -85,10 +99,10 @@ class ProductoCrud {
         // 2. Eliminar imagen en Supabase
         if (!empty($producto['imagen_url'])) {
             $urlParts = explode('/', $producto['imagen_url']);
-            $fileName = end($urlParts);
+            $fileName = end($urlParts); // nombre del archivo
 
-            $supabaseUrl = 'https://recghdynvcvyzdrtmouj.supabase.co/storage/v1/object/Imagen/' . $fileName;
-            $supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlY2doZHludmN2eXpkcnRtb3VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1NTU4MzcsImV4cCI6MjA3MzEzMTgzN30.l7O6l_P3k0TinXjRbj9v6EN0x6iXzLxcuQEUqVtyfdE';
+            $supabaseUrl = "https://recghdynvcvyzdrtmouj.supabase.co/storage/v1/object/Imagen/{$fileName}";
+            $supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJlY2doZHludmN2eXpkcnRtb3VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1NTU4MzcsImV4cCI6MjA3MzEzMTgzN30.l7O6l_P3k0TinXjRbj9v6EN0x6iXzLxcuQEUqVtyfdE";
 
             $ch = curl_init($supabaseUrl);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -97,9 +111,28 @@ class ProductoCrud {
                 "apikey: $supabaseKey"
             ]);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_exec($ch);
+
+            // (opcional: para entorno local si sigue dando SSL error)
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
             curl_close($ch);
+
+            /*file_put_contents(
+                'log_supabase_delete.txt',
+                "=== LOG SUPABASE DELETE ===\nIntento borrar: {$fileName}\nHTTP: {$httpCode}\nCurlError: {$curlError}\nRespuesta: {$response}\n\n",
+                FILE_APPEND
+            );*/
+
+            if ($httpCode !== 200 && $httpCode !== 204) {
+                return ['ok'=>false, 'msg'=>"Error HTTP $httpCode al eliminar imagen: $response"];
+            }
         }
+
+
 
         // 3. Eliminar código de barras asociado
         if (!empty($producto['codigos_barra_id'])) {
@@ -148,7 +181,7 @@ class ProductoCrud {
             return ['data'=>[],'total'=>0,'msg'=>$e->getMessage()];
         }
     }
-    
+
     public function listarConCategoria($limite, $pagina, $busqueda='') {
     $offset = ($pagina-1)*$limite;
     try {
@@ -188,4 +221,27 @@ class ProductoCrud {
     }
 }
 
+public function actualizarCantidad($idProducto, $cantidadVendida) {
+        try {
+            // Restar del stock actual
+            $sql = "UPDATE public.producto
+                    SET cantidad = cantidad - :cantidadVendida,
+                        actualizado_en = NOW()
+                    WHERE id = :idProducto";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':cantidadVendida' => $cantidadVendida,
+                ':idProducto' => $idProducto
+            ]);
+
+            // Verificar si se afectó alguna fila
+            if ($stmt->rowCount() > 0) {
+                return ['ok'=>true,'msg'=>'Stock actualizado correctamente'];
+            } else {
+                return ['ok'=>false,'msg'=>'No se actualizó el stock (producto no encontrado)'];
+            }
+        } catch (Exception $e) {
+            return ['ok'=>false,'msg'=>'Error al actualizar stock: '.$e->getMessage()];
+        }
+    }
 }

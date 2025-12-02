@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileLink = document.getElementById('profile-link');
     const profileMenu = document.getElementById('profile-menu');
 
+    // 🛑 Verificación
+    // Solo si existen en el DOM
+    if (profileLink && profileMenu) {
+        profileLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            profileMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!profileMenu.contains(e.target) && e.target !== profileLink) {
+                profileMenu.classList.remove("show");
+            }
+        });
+    }
+
+    // --- Fin de la lógica del menú de perfil ---
+
     let cartCount = 0;
 
     const renderProducts = (productsToRender) => {
@@ -18,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         productsToRender.forEach(product => {
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
+            if (prod.cantidad <= 0) {
+                card.classList.add('stock-agotado'); // Corregido
+            }
             productCard.innerHTML = `
                 <img src="assets/images/${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
@@ -39,21 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const performSearch = () => {
-        const query = searchInput.value.toLowerCase();
-        const filteredProducts = products.filter(product =>
-            product.name.toLowerCase().includes(query) ||
-            product.description.toLowerCase().includes(query) ||
-            product.category.toLowerCase().includes(query)
-        );
-        renderProducts(filteredProducts);
-    };
-
-    searchInput.addEventListener('input', performSearch);
-    document.getElementById('search-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        performSearch();
-    });
 
     productList.addEventListener('click', (e) => {
         if (e.target.classList.contains('buy-button')) {
@@ -66,16 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
-    profileLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!e.target.matches('#profile-link') && !profileMenu.contains(e.target)) {
-            profileMenu.style.display = 'none';
-        }
-    });
-
 });
