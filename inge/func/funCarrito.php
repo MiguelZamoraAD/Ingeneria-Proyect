@@ -1,6 +1,11 @@
 <?php
 session_start();
 <<<<<<< Updated upstream:inge/func/funCarrito.php
+<<<<<<< Updated upstream:inge/func/funCarrito.php
+=======
+require_once __DIR__ . '/../class/Conexion.php';
+require_once __DIR__ . '/../class/productoCRUD.php';
+>>>>>>> Stashed changes:func/funCarrito.php
 =======
 require_once __DIR__ . '/../class/Conexion.php';
 require_once __DIR__ . '/../class/productoCRUD.php';
@@ -14,7 +19,10 @@ if (!isset($_POST['id'])) {
 $id = $_POST['id'];
 
 <<<<<<< Updated upstream:inge/func/funCarrito.php
+<<<<<<< Updated upstream:inge/func/funCarrito.php
 =======
+=======
+>>>>>>> Stashed changes:func/funCarrito.php
 $crud = new ProductoCrud();
 $res = $crud->obtener($id);
 
@@ -26,12 +34,16 @@ if (!$res['ok']) {
 $productoDB = $res['producto'];
 $stockReal = $productoDB['cantidad']; // stock real en DB
 
+<<<<<<< Updated upstream:inge/func/funCarrito.php
+>>>>>>> Stashed changes:func/funCarrito.php
+=======
 >>>>>>> Stashed changes:func/funCarrito.php
 // Inicializa el carrito si no existe
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
 
+<<<<<<< Updated upstream:inge/func/funCarrito.php
 <<<<<<< Updated upstream:inge/func/funCarrito.php
 // Si el producto ya está en el carrito, incrementa la cantidad
 if (isset($_SESSION['carrito'][$id])) {
@@ -52,6 +64,8 @@ foreach ($_SESSION['carrito'] as $item) {
 
 echo json_encode(['ok' => true, 'total' => $total]);
 =======
+=======
+>>>>>>> Stashed changes:func/funCarrito.php
 // Cantidad actual en el carrito
 $cantidadActual = $_SESSION['carrito'][$id]['cantidad'] ?? 0;
 
@@ -83,5 +97,9 @@ echo json_encode([
     'ok' => true,
     'total' => $totalItems,
     'stockRestante' => $stockRestante
+<<<<<<< Updated upstream:inge/func/funCarrito.php
+]);
+>>>>>>> Stashed changes:func/funCarrito.php
+=======
 ]);
 >>>>>>> Stashed changes:func/funCarrito.php

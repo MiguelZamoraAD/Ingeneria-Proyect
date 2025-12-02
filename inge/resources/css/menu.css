@@ -1,7 +1,10 @@
 /* Menu desplegable al momento de cambiar de tamaño de la pantalla*/
 
 <<<<<<< Updated upstream:inge/resources/css/menu.css
+<<<<<<< Updated upstream:inge/resources/css/menu.css
 =======
+=======
+>>>>>>> Stashed changes:resources/css/menu.css
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -78,6 +81,9 @@ nav a:hover {
     color: var(--secondary-color);
 }
 
+<<<<<<< Updated upstream:inge/resources/css/menu.css
+>>>>>>> Stashed changes:resources/css/menu.css
+=======
 >>>>>>> Stashed changes:resources/css/menu.css
 .nav-menu ul {
     display: flex;

@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 <<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
     // Simular pago y vaciar carrito
     document.getElementById("formulario-pago").addEventListener("submit", e => {
         e.preventDefault();
@@ -35,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 =======
+=======
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
     // Simular pago y vaciar carrito hacer arreglo y que se vea en la pantalla y que el usaurio pueda descargar el recibo
     document.getElementById("formulario-pago").addEventListener("submit", e => {
         e.preventDefault();
@@ -99,6 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
         doc.save("recibo_compra.pdf");
     }
 
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
+=======
 >>>>>>> Stashed changes:resources/js/ArtCarrito.js
     // Manejar botones de sumar y restar
     document.querySelectorAll(".item-carrito").forEach(item => {
@@ -107,7 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const subtotalEl = item.querySelector(".subtotal");
         const precioUnitario = parseFloat(item.dataset.precio); // precio por producto
 <<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
 
+=======
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
 =======
 >>>>>>> Stashed changes:resources/js/ArtCarrito.js
         // Botón restar
@@ -134,9 +143,15 @@ document.addEventListener("DOMContentLoaded", () => {
         // Botón sumar
         item.querySelector(".btn-sumar").addEventListener("click", () => {
 <<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
             const stock = parseInt(item.dataset.stock); // stock del producto
             let cantidadActual = parseInt(cantidadEl.textContent);
 
+=======
+            const stock = parseInt(item.dataset.stock);
+            let cantidadActual = parseInt(cantidadEl.textContent);
+            console.log("Stock disponible:", stock);
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
 =======
             const stock = parseInt(item.dataset.stock);
             let cantidadActual = parseInt(cantidadEl.textContent);
@@ -156,13 +171,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             actualizarTotales();
                         } else {
 <<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
                             alert(data.msg); // mensaje de stock
 =======
+=======
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Stock insuficiente',
                                 text: data.msg
                             }); // mensaje de stock
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
+=======
 >>>>>>> Stashed changes:resources/js/ArtCarrito.js
                         }
                     });
@@ -176,6 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 <<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+<<<<<<< Updated upstream:inge/resources/js/ArtCarrito.js
+=======
+    actualizarTotales();
+>>>>>>> Stashed changes:resources/js/ArtCarrito.js
 =======
     actualizarTotales();
 >>>>>>> Stashed changes:resources/js/ArtCarrito.js

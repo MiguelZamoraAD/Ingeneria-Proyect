@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'product-card';
 <<<<<<< Updated upstream:inge/resources/js/categoria.js
+<<<<<<< Updated upstream:inge/resources/js/categoria.js
+=======
+            if (prod.cantidad <= 0) {
+                card.classList.add('stock-agotado'); // Corregido
+            }
+>>>>>>> Stashed changes:resources/js/categoria.js
 =======
             if (prod.cantidad <= 0) {
                 card.classList.add('stock-agotado'); // Corregido

@@ -41,7 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 <<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
+<<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
 
+=======
+>>>>>>> Stashed changes:resources/js/proCatalogo.js
 =======
 >>>>>>> Stashed changes:resources/js/proCatalogo.js
     async function cargarProductosColeccion() {
@@ -83,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 card.innerHTML = `
 <<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
+<<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
                     <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
                          alt="${prod.nombre}"
                          data-nombre-archivo="${fileName}">
@@ -93,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                 `;
 =======
+=======
+>>>>>>> Stashed changes:resources/js/proCatalogo.js
                                 <img src="${prod.imagen_url || 'img/placeholder.jpg'}"
                                      alt="${prod.nombre}"
                                      data-nombre-archivo="${fileName}">
@@ -102,6 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p>Stock: ${prod.cantidad}</p>
                                 
                             `;
+<<<<<<< Updated upstream:inge/resources/js/proCatalogo.js
+>>>>>>> Stashed changes:resources/js/proCatalogo.js
+=======
 >>>>>>> Stashed changes:resources/js/proCatalogo.js
 
                 // === Botón Ver Detalles (para todos) ===
